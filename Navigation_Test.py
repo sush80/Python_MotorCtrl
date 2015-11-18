@@ -9,22 +9,25 @@ Created on Sat Nov 14 19:38:40 2015
 import matplotlib.pyplot as plt
 import time
 import MotorCtrl as motorFast
+import numpy as np
 
 #ion()
 
 #SETTINGS
 simulationTimeIncrement_ms = 100
-simulationTargetSpeed = 100
-plotWindowLength_ms = 2000
+#simulationTargetSpeed = 100
+#plotWindowLength_ms = 2000
 
 #INIT
 simulationTime_ms = 0
-timeList_ms = []
-speedList = []
-setSpeedList = []
-motorFastSpeed = -100
+#timeList_ms = []
+#speedList = []
+#setSpeedList = []
+#motorFastSpeed = -100
+targetHeading = np.int8(120)
+currentHeading = np.int8(0)
 
-
+'''
 fig = plt.figure(1)
 
 plot221 = fig.add_subplot(221)
@@ -37,11 +40,11 @@ plot221.grid(True)
 
 #plot221.axes.set_xlim([0,100])
 plot221.axes.set_ylim([-110,+110])
-
+'''
 
 
 #line, = plot(0,0)
-for i in range(1,300):
+for i in range(1,30):
     ############################################
     #Perform Calculations
     motorFastSpeed = motorFast.MotorCtrl_Cyclic(simulationTimeIncrement_ms, motorFastSpeed, simulationTargetSpeed)

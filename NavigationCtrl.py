@@ -8,14 +8,14 @@ Motor Controller
 """
 
 
-
-def MotorCtrl_Navigation_Init():
+'''
+def NavigationCtrl_Init():
     # ???
     return 0
-
+'''
 
 """
-MotorCtrl_Navigation_Cyclic(deltaTime_ms, deltaDirection_s8bit)
+NavigationCtrl_Cyclic(deltaTime_ms, deltaDirection_s8bit)
 
 Closed Loop Controller for Navigation. Input is a signed tow complement number,
 allowing the Controller to overcome the nonlinearity issue on the step from
@@ -23,14 +23,14 @@ allowing the Controller to overcome the nonlinearity issue on the step from
 
 Parameters
 ----------
-deltaDirection_s8bit : int8
+deltaDirection_s8bit : numpy.int8
     Direction error represented in signed 8 bit. 
-    s8bit |  Degree
-    ------+----------------
-    -128  | -180 
-       0  |    0
-       1  |    1,40625
-    +127  |  178,59375
+    numpy.int8 |  Degree
+    -----------+----------------
+         -128  | -180 
+            0  |    0
+            1  |    1,40625
+         +127  |  178,59375
  
     
     
@@ -40,7 +40,7 @@ uint
     Output of Controller Limited to [-200 ... +200]
     
 """  
-def MotorCtrl_Navigation_Cyclic(deltaTime_ms, deltaDirection_s8bit):
+def NavigationCtrl_Cyclic(deltaTime_ms, deltaDirection_s8bit):
 #P Ctrl
 #  y = Kp * e
 #I Ctrl

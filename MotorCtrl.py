@@ -12,7 +12,7 @@ INCR_PER_MS = 0.05
 
 
 """
-MotorCtrlFast_Cyclic(deltaTime_ms, speed, setSpeed)
+MotorCtrl_Cyclic(deltaTime_ms, speed, setSpeed)
 
 Control ramping for Motor Control to desired target setSpeed.
 Call in regular Intervalls
@@ -33,7 +33,7 @@ uint
     new Speed
     
 """ 
-def MotorCtrlFast_Cyclic(deltaTime_ms, speed, setSpeed):
+def MotorCtrl_Cyclic(deltaTime_ms, speed, setSpeed):
    global INCR_PER_MS
 
    assert speed <=  100, "speed out of allowed Limits"
