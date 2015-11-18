@@ -8,7 +8,7 @@ Created on Sat Nov 14 19:38:40 2015
 #from pylab import *
 import matplotlib.pyplot as plt
 import time
-import MotorCtrlFast as motorFast
+import MotorCtrl as motorFast
 
 #ion()
 
@@ -21,15 +21,19 @@ plotWindowLength_ms = 2000
 simulationTime_ms = 0
 timeList_ms = []
 speedList = []
+setSpeedList = []
 motorFastSpeed = -100
 
 
 fig = plt.figure(1)
 
-plot221 = plt.subplot(221)
-data221, = plt.plot(timeList_ms, speedList, 'bo')
-plt.title('Motorctrl_Fast')
-plt.grid(True)
+plot221 = fig.add_subplot(221)
+data221A, = plot221.plot(timeList_ms, speedList, 'bo')
+data221B, = plot221.plot(timeList_ms, setSpeedList, 'r+')
+plot222 = fig.add_subplot(222)
+data222, = plot222.plot(timeList_ms, speedList, 'ro')
+#plot221.title('Motorctrl_Fast')
+plot221.grid(True)
 
 #plot221.axes.set_xlim([0,100])
 plot221.axes.set_ylim([-110,+110])
@@ -38,16 +42,21 @@ plot221.axes.set_ylim([-110,+110])
 
 #line, = plot(0,0)
 for i in range(1,300):
-    ######################
+    ############################################
     #Perform Calculations
     motorFastSpeed = motorFast.MotorCtrlFast_Cyclic(simulationTimeIncrement_ms, motorFastSpeed, simulationTargetSpeed)
     
-    ######################
+    ############################################
     #Do the plotting stuff
     timeList_ms.append(simulationTime_ms)
     speedList.append(motorFastSpeed)
-    data221.set_xdata(timeList_ms[:])
-    data221.set_ydata(speedList[:])
+    data221A.set_xdata(timeList_ms[:])
+    data221A.set_ydata(speedList[:])
+    
+    setSpeedList.append(simulationTargetSpeed)
+    data221B.set_xdata(timeList_ms[:])
+    data221B.set_ydata(setSpeedList[:])
+
     if (simulationTime_ms < plotWindowLength_ms):
         plot221.axes.set_xlim([0,plotWindowLength_ms])
     else:
@@ -56,12 +65,14 @@ for i in range(1,300):
     plt.draw()
     #print "turn"
     
-    ######################
+    ############################################
     #Housekeeping
     simulationTime_ms += 100
-    time.sleep(0.1)
+    #time.sleep(0.01)
 
 
+    ######################
+    # Mess with simulation Parameters
     if i == 50:
         simulationTargetSpeed = -50
     if i == 100:
