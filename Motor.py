@@ -33,7 +33,7 @@ uint
     new Speed
     
 """ 
-def MotorCtrl_Cyclic(deltaTime_ms, speed, setSpeed):
+def Motor_Cyclic(deltaTime_ms, speed, setSpeed):
    global INCR_PER_MS
 
    assert speed <=  100, "speed out of allowed Limits"

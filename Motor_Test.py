@@ -8,7 +8,7 @@ Created on Sat Nov 14 19:38:40 2015
 #from pylab import *
 import matplotlib.pyplot as plt
 import time
-import MotorCtrl as motorFast
+import Motor as motorFast
 
 #ion()
 
@@ -44,7 +44,7 @@ plot221.axes.set_ylim([-110,+110])
 for i in range(1,300):
     ############################################
     #Perform Calculations
-    motorFastSpeed = motorFast.MotorCtrl_Cyclic(simulationTimeIncrement_ms, motorFastSpeed, simulationTargetSpeed)
+    motorFastSpeed = motorFast.Motor_Cyclic(simulationTimeIncrement_ms, motorFastSpeed, simulationTargetSpeed)
     
     ############################################
     #Do the plotting stuff
