@@ -7,18 +7,25 @@ Created on Tue Nov 17 20:27:12 2015
 
 import numpy as np
 
+
+
+#SETTINGS
+WEIGHT_DIRECTION_CHANGE = 10
+
 """
 
-NavigationSimulator(controlInput, s8bit_currentHeading)
+MovementSimulator(motorLeft, motorRight, s8bit_currentHeading)
 
-Stub Simulator of Motor System. Takes input from controller, returns 
-simulatied heading
+Stub Simulator of Motor driven System. Takes input from controller, returns 
+simulated heading
 
 
 Parameters
 ----------
-controlInput : int
-    Input to drive Motors [-200 ... +200]
+motorLeft : int
+    Input to drive Motors [-100 ... +100]
+motorRight : int
+    Input to drive Motors [-100 ... +100]
 s8bit_currentHeading : numpy.int8
     Heading [-128 ... +127]
  
@@ -31,12 +38,27 @@ numpy.int8 : Direction_s8bit
     
 """  
 
-def NavigationSimulator(controlInput, s8bit_currentHeading):
+def MovementSimulator(motorLeft, motorRight, s8bit_currentHeading):
+    global WEIGHT_DIRECTION_CHANGE    
     
-    if controlInput > 0:
-        return s8bit_currentHeading + np.int8(1)
-    elif controlInput < 0:
-        return s8bit_currentHeading - np.int8(-1)
-    return np.int8(0)
+    assert motorLeft <=  100, "motorLeft out of allowed Limits"
+    assert motorLeft >= -100, "motorLeft out of allowed Limits"
+    assert motorRight <=  100, "motorRight out of allowed Limits"
+    assert motorRight >= -100, "motorRight out of allowed Limits"
+   
+    delta = motorLeft - motorRight
+    delta = delta / 200.0  #Scale to [-1 ... 1]
+
+    assert delta <= 1
+    assert delta >= -1
     
-    #shall include left and right motor ??
+    weightedDelta = delta * WEIGHT_DIRECTION_CHANGE
+    
+    if delta > 0: 
+        #motorLeft > motorRight : Driving to right side
+        return s8bit_currentHeading + np.int8(weightedDelta)
+    elif delta < 0: 
+        return s8bit_currentHeading - np.int8(weightedDelta)
+    return s8bit_currentHeading
+    
+    #FIXME Driving to one side needs weighting with delta
