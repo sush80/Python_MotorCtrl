@@ -56,7 +56,27 @@ class Test_Basics(unittest.TestCase):
             
     def test_10(self):
         ret = mvSim.MovementSimulator(0,100,np.int8(20))
-        self.assertEqual(ret,15)    
+        self.assertEqual(ret,15) 
+            
+    def test_11(self):
+        ret = mvSim.MovementSimulator(0,100,np.int8(20))
+        self.assertEqual(ret,15) 
+        ret = mvSim.MovementSimulator(0,100,np.int8(ret))
+        self.assertEqual(ret,10)  
+        ret = mvSim.MovementSimulator(0,100,np.int8(ret))
+        self.assertEqual(ret,5)   
+        ret = mvSim.MovementSimulator(0,100,np.int8(ret))
+        self.assertEqual(ret,0)   
+        ret = mvSim.MovementSimulator(0,100,np.int8(ret))
+        self.assertEqual(ret,-5)
+            
+    def test_12(self):
+        ret = mvSim.MovementSimulator(100,0,np.int8(123))
+        self.assertEqual(ret,-128) 
+            
+    def test_13(self):
+        ret = mvSim.MovementSimulator(0,100,np.int8(-128))
+        self.assertEqual(ret,123)    
    
      #   self.assertEqual(ret[1],-98) #due to datatype limitations
             
