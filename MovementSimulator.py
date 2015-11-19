@@ -38,13 +38,15 @@ numpy.int8 : Direction_s8bit
     
 """  
 
-def MovementSimulator(motorLeft, motorRight, s8bit_currentHeading):
+def MovementSimulator(motorLeft, motorRight, currentHeading):
     global WEIGHT_DIRECTION_CHANGE    
     
     assert motorLeft <=  100, "motorLeft out of allowed Limits"
     assert motorLeft >= -100, "motorLeft out of allowed Limits"
     assert motorRight <=  100, "motorRight out of allowed Limits"
     assert motorRight >= -100, "motorRight out of allowed Limits"
+    assert currentHeading <=  127,       "heading out of allowed Limits"
+    assert currentHeading >= -128,       "heading out of allowed Limits"
    
     delta = motorLeft - motorRight
     delta = delta / 200.0  #Scale to [-1 ... 1]
@@ -53,12 +55,17 @@ def MovementSimulator(motorLeft, motorRight, s8bit_currentHeading):
     assert delta >= -1
     
     weightedDelta = delta * WEIGHT_DIRECTION_CHANGE
+    ret=  currentHeading
     
     if delta > 0: 
         #motorLeft > motorRight : Driving to right side
-        return s8bit_currentHeading + np.int8(weightedDelta)
+        ret = currentHeading + np.int8(weightedDelta)
     elif delta < 0: 
-        return s8bit_currentHeading - np.int8(weightedDelta)
-    return s8bit_currentHeading
+        ret = currentHeading + np.int8(weightedDelta)
+        
+        
+    assert ret <=  127,       "heading out of allowed Limits"
+    assert ret >= -128,       "heading out of allowed Limits"
+    return ret
     
     #FIXME Driving to one side needs weighting with delta
