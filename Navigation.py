@@ -7,6 +7,7 @@ Motor Controller
 @author: anyuser
 """
 
+import numpy
 
 '''
 def NavigationCtrl_Init():
@@ -48,6 +49,9 @@ def NavigationCtrl_Cyclic(deltaTime_ms, deltaDirection_s8bit):
 #  y = Ki * Ta * esum
     
    #STUB FIXME
+ 
+   assert type(deltaDirection_s8bit) is  numpy.int    
+    
    if deltaDirection_s8bit > 0:
        return 1
    elif deltaDirection_s8bit < 0:

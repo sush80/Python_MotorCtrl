@@ -5,7 +5,7 @@ Created on Tue Nov 17 20:27:12 2015
 @author: anyuser
 """
 
-import numpy as np
+import numpy
 
 
 
@@ -47,6 +47,7 @@ def MovementSimulator(motorLeft, motorRight, currentHeading):
     assert motorRight >= -100, "motorRight out of allowed Limits"
     assert currentHeading <=  127,       "heading out of allowed Limits"
     assert currentHeading >= -128,       "heading out of allowed Limits"
+    assert type(currentHeading) is  numpy.int8
    
     delta = motorLeft - motorRight
     delta = delta / 200.0  #Scale to [-1 ... 1]
@@ -57,11 +58,12 @@ def MovementSimulator(motorLeft, motorRight, currentHeading):
     weightedDelta = delta * WEIGHT_DIRECTION_CHANGE
     ret=  currentHeading
     
-    if delta > 0: 
+    #if delta > 0: 
         #motorLeft > motorRight : Driving to right side
-        ret = currentHeading + np.int8(weightedDelta)
-    elif delta < 0: 
-        ret = currentHeading + np.int8(weightedDelta)
+    #   ret = currentHeading + np.int8(weightedDelta)
+    #elif delta < 0: 
+    #    ret = currentHeading + np.int8(weightedDelta)
+    ret = currentHeading + numpy.int8(weightedDelta)
         
         
     assert ret <=  127,       "heading out of allowed Limits"

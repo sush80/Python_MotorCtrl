@@ -5,7 +5,6 @@ Created on Tue Nov 17 20:27:12 2015
 @author: anyuser
 """
 
-import numpy as np
 
 
 
@@ -13,10 +12,10 @@ import numpy as np
 
 """
 
-Powertrain(heading, motorMaxSpeed)
+Powertrain(headingControl, motorMaxSpeed)
 
-Stub Simulator of Motor driven System. Takes input from controller, returns 
-simulated heading
+Translates relative target heading control signal to motor Speeds for 
+left and right motor
 
 
 Parameters
@@ -35,14 +34,15 @@ List[motorSpeedLeft, motorSpeedRight] : int
     
 """  
 
-def Powertrain(heading, motorMaxSpeed): 
+def Powertrain(headingControl, motorMaxSpeed): 
     
     assert motorMaxSpeed <=  100, "motorMaxSpeed out of allowed Limits"
     assert motorMaxSpeed >=    0, "motorMaxSpeed out of allowed Limits"
-    assert heading <=  127,       "heading out of allowed Limits"
-    assert heading >= -128,       "heading out of allowed Limits"
+    assert headingControl <=  127,       "heading out of allowed Limits"
+    assert headingControl >= -128,       "heading out of allowed Limits"
+    
    
-    headingNormalized = heading / 128.0   # Range to [-1 ... 1)
+    headingNormalized = headingControl / 128.0   # Range to [-1 ... 1)
     # Range to [-200 ... 200) for e.g. maxSpeed = 100
     headingWeighted = int(headingNormalized * 2.0 * motorMaxSpeed )
     speedLeft = motorMaxSpeed
