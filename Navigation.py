@@ -47,16 +47,19 @@ def NavigationCtrl_Cyclic(deltaTime_ms, deltaDirection_s8bit):
 #I Ctrl
 #  esum = esum + e
 #  y = Ki * Ta * esum
-    
-   #STUB FIXME
+   
  
    assert type(deltaDirection_s8bit) is  numpy.int8   
+   
+   return deltaDirection_s8bit
+   '''
     
    if deltaDirection_s8bit > 0:
        return 1
    elif deltaDirection_s8bit < 0:
        return -1
    return 0
+   '''
    
    #Limit to [-200 ... +200]
    
