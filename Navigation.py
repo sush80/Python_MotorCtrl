@@ -9,12 +9,12 @@ Motor Controller
 
 import numpy
 
-ESUM = 0
+ESUM = numpy.float(0)
 
 
 def NavigationCtrl_Init():
     global ESUM 
-    ESUM = 0
+    ESUM = numpy.float(0)
 
 
 """
@@ -58,16 +58,16 @@ def NavigationCtrl_Cyclic(deltaTime_ms, deltaDirection_s8bit):
  
     assert type(deltaDirection_s8bit) is  numpy.int8   
    
-    y = KP * deltaDirection_s8bit
-    ESUM += deltaDirection_s8bit
-    y += KI * ESUM * (deltaTime_ms / 1000.0)
+    y = numpy.float(KP * deltaDirection_s8bit)
+    ESUM += numpy.float(deltaDirection_s8bit)
+    y += numpy.float(KI) * ESUM * numpy.float(deltaTime_ms / 1000.0)
     
     
     #Limiters
     if y > 200:
-        y = 200
+        y = numpy.float(200)
     elif y < -200:
-        y = -200
+        y = numpy.float(-200)
     return y
     '''
     
