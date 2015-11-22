@@ -43,7 +43,7 @@ Input is TargetHeading
 #SETTINGS / PARAMETERS
 TARGET_HEADING_s8bit = numpy.int8( Utils.Utils_360_to_s8bit(100))
 SIMULATION_TIME_INCREMENT_ms = 100
-PLOT_WINDOW_LENGTH_ms = 2000
+PLOT_WINDOW_LENGTH_ms = 15000
 MOTOR_MAX_SPEED = 100 # Percent
 
 
@@ -61,6 +61,8 @@ navigationOutputList = []
 currentHeadings8bit = numpy.int8( Utils.Utils_360_to_s8bit(0))
 motorLeftCurrentSpeed = 0
 motorRightCurrentSpeed = 0
+
+Navigation.NavigationCtrl_Init()
 
 
 #INIT Plot Stuff
@@ -88,7 +90,7 @@ plot2.axes.set_ylim([-200,+200])
 plot3.axes.set_ylim([-100,+100])
 plot4.axes.set_ylim([-100,+100])
 
-for i in range(1,5):
+for i in range(1,150):
     ############################################
     #Perform Calculations
 
@@ -150,3 +152,7 @@ for i in range(1,5):
 
     ######################
     # Mess with simulation Parameters
+    if (simulationTime_ms == 5000):
+        TARGET_HEADING_s8bit = Utils.Utils_360_to_s8bit(300)
+    if (simulationTime_ms == 10000):
+        TARGET_HEADING_s8bit = Utils.Utils_360_to_s8bit(50)

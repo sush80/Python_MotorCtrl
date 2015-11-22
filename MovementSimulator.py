@@ -10,7 +10,11 @@ import numpy
 
 
 #SETTINGS
-WEIGHT_DIRECTION_CHANGE = 10
+WEIGHT_DIRECTION_CHANGE = 20
+
+def DEBUG_SET_WEIGHT_DIRECTION_CHANGE(val):
+    global WEIGHT_DIRECTION_CHANGE    
+    WEIGHT_DIRECTION_CHANGE = val    
 
 """
 
@@ -52,7 +56,7 @@ def MovementSimulator(motorLeft, motorRight, currentHeading):
     delta = motorLeft - motorRight
     delta = delta / 200.0  #Scale to [-1 ... 1]
 
-    assert delta <= 1
+    assert delta <=  1
     assert delta >= -1
     
     weightedDelta = delta * WEIGHT_DIRECTION_CHANGE

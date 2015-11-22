@@ -9,11 +9,13 @@ Motor Controller
 
 import numpy
 
-'''
+ESUM = 0
+
+
 def NavigationCtrl_Init():
-    # ???
-    return 0
-'''
+    global ESUM 
+    ESUM = 0
+
 
 """
 NavigationCtrl_Cyclic(deltaTime_ms, deltaDirection_s8bit)
@@ -41,25 +43,40 @@ uint
     Output of Controller Limited to [-200 ... +200]
     
 """  
-def NavigationCtrl_Cyclic(deltaTime_ms, deltaDirection_s8bit):
+    
 #P Ctrl
 #  y = Kp * e
 #I Ctrl
 #  esum = esum + e
 #  y = Ki * Ta * esum
+def NavigationCtrl_Cyclic(deltaTime_ms, deltaDirection_s8bit):
+    global ESUM 
+    
+    KP = 1
+    KI = 0.05
    
  
-   assert type(deltaDirection_s8bit) is  numpy.int8   
+    assert type(deltaDirection_s8bit) is  numpy.int8   
    
-   return deltaDirection_s8bit
-   '''
+    y = KP * deltaDirection_s8bit
+    ESUM += deltaDirection_s8bit
+    y += KI * ESUM * (deltaTime_ms / 1000.0)
     
-   if deltaDirection_s8bit > 0:
+    
+    #Limiters
+    if y > 200:
+        y = 200
+    elif y < -200:
+        y = -200
+    return y
+    '''
+    
+    if deltaDirection_s8bit > 0:
        return 1
-   elif deltaDirection_s8bit < 0:
-       return -1
-   return 0
-   '''
+    elif deltaDirection_s8bit < 0:
+        return -1
+    return 0
+    '''
    
    #Limit to [-200 ... +200]
    

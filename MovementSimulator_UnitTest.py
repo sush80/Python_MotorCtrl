@@ -14,6 +14,9 @@ import numpy as np
 
 class Test_Basics(unittest.TestCase):
     
+    def setUp(self):
+        mvSim.DEBUG_SET_WEIGHT_DIRECTION_CHANGE(10)
+    
     def test_0(self):
         with self.assertRaises(AssertionError):
             mvSim.MovementSimulator(101,0,np.int8(0))

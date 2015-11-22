@@ -38,8 +38,8 @@ def Powertrain(headingControl, motorMaxSpeed):
     
     assert motorMaxSpeed <=  100, "motorMaxSpeed out of allowed Limits"
     assert motorMaxSpeed >=    0, "motorMaxSpeed out of allowed Limits"
-    assert headingControl <=  127,       "heading out of allowed Limits"
-    assert headingControl >= -128,       "heading out of allowed Limits"
+    assert headingControl <=  200,       "heading out of allowed Limits"
+    assert headingControl >= -200,       "heading out of allowed Limits"
     
    
     headingNormalized = headingControl / 128.0   # Range to [-1 ... 1)
@@ -53,6 +53,16 @@ def Powertrain(headingControl, motorMaxSpeed):
         speedRight -= headingWeighted
     elif (headingWeighted < 0):
         speedLeft += headingWeighted
+        
+    if speedRight >= 100:
+        speedRight = 100
+    elif speedRight <= -100:
+        speedRight = -100
+        
+    if speedLeft >= 100:
+        speedLeft = 100
+    elif speedLeft <= -100:
+        speedLeft = -100
         
         
     assert speedLeft <=  100,        "speedLeft out of allowed Limits"
