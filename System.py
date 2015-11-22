@@ -7,7 +7,7 @@ Motor Controller
 @author: anyuser
 """
 
-
+import numpy
 
 
 
@@ -28,7 +28,18 @@ Input is TargetHeading
      POWERTRAIN 
          UnitTests DONE & OK
      NAVIGATION
-     
-  
+         Stub with simple control mechanism
+         TODO: PI Controller
+    
+    
     
 """ 
+
+#SETTINGS / PARAMETERS
+TARGET_HEADING_360 = 100
+
+
+TARGET_HEADING_s8bit = 
+
+
+
