@@ -50,7 +50,7 @@ def NavigationCtrl_Cyclic(deltaTime_ms, deltaDirection_s8bit):
     
    #STUB FIXME
  
-   assert type(deltaDirection_s8bit) is  numpy.int    
+   assert type(deltaDirection_s8bit) is  numpy.int8   
     
    if deltaDirection_s8bit > 0:
        return 1
